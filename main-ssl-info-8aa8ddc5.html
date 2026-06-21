@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>直播吧 · 信息参考卡</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f4f8fa;
+            color: #1f2e3b;
+            line-height: 1.6;
+            padding: 24px 16px 48px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 960px;
+            width: 100%;
+        }
+
+        /* 主视觉卡片 — 像一张引用的索引卡 */
+        .hero-card {
+            background: linear-gradient(145deg, #e0f0f5 0%, #cce5ed 100%);
+            border-radius: 32px;
+            padding: 40px 28px 32px;
+            margin-bottom: 36px;
+            box-shadow: 0 8px 18px rgba(22, 94, 110, 0.08);
+            position: relative;
+            transition: box-shadow 0.2s;
+        }
+
+        .hero-card h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #115a6b;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .hero-card h1 small {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #307a8b;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 2px 14px;
+            border-radius: 40px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #1c4e5c;
+            max-width: 580px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3b9aaf;
+            padding-left: 18px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .hero-desc strong {
+            font-weight: 600;
+            color: #0a495a;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px 32px;
+            font-size: 0.95rem;
+            color: #206377;
+            padding-top: 8px;
+            border-top: 1px dashed #7bbaca;
+        }
+
+        .hero-meta span {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 4px 16px 4px 12px;
+            border-radius: 40px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 网格卡片系统：用途 / 人群 */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+            margin-bottom: 36px;
+        }
+
+        .grid-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 28px 22px 22px;
+            box-shadow: 0 4px 12px rgba(33, 103, 122, 0.05);
+            border: 1px solid #d7e9ef;
+            transition: transform 0.15s, box-shadow 0.2s;
+        }
+
+        .grid-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 88, 104, 0.08);
+        }
+
+        .grid-card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #0e576a;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .grid-card p, .grid-card li {
+            font-size: 0.98rem;
+            color: #1f3b48;
+        }
+
+        .grid-card ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 8px;
+        }
+
+        .grid-card ul li {
+            padding: 6px 0 6px 22px;
+            position: relative;
+            border-bottom: 1px solid #e5f0f4;
+        }
+
+        .grid-card ul li::before {
+            content: "—";
+            position: absolute;
+            left: 2px;
+            color: #349bb2;
+            font-weight: 300;
+        }
+
+        .grid-card ul li:last-child {
+            border-bottom: none;
+        }
+
+        /* 自然链接段落 — 嵌入卡片风格 */
+        .link-block {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 28px 24px;
+            margin-bottom: 36px;
+            border: 1px solid #d3e5ec;
+            box-shadow: 0 3px 10px rgba(27, 87, 103, 0.04);
+        }
+
+        .link-block p {
+            font-size: 1rem;
+            margin-bottom: 18px;
+            color: #1f3744;
+        }
+
+        .link-block a {
+            color: #1c7c94;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1.5px dashed #8ac3d4;
+            transition: border-bottom 0.15s, color 0.2s;
+        }
+
+        .link-block a:hover {
+            color: #0b5f75;
+            border-bottom: 1.5px solid #0b5f75;
+        }
+
+        .link-block .footnote {
+            margin-top: 14px;
+            font-size: 0.9rem;
+            color: #417787;
+            background: #eef6f9;
+            padding: 12px 18px;
+            border-radius: 60px;
+            display: inline-block;
+        }
+
+        /* FAQ 摘要卡片 — 克制且成组 */
+        .faq-summary {
+            background: #edf5f8;
+            border-radius: 28px;
+            padding: 22px 24px 28px;
+            margin-bottom: 28px;
+        }
+
+        .faq-summary h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #296e80;
+            margin-bottom: 12px;
+            border-left: 4px solid #479ab0;
+            padding-left: 14px;
+        }
+
+        .faq-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 10px 0;
+            border-bottom: 1px solid #cde1e9;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            color: #154c5c;
+        }
+
+        .faq-a {
+            font-size: 0.93rem;
+            color: #1f4554;
+            line-height: 1.5;
+        }
+
+        .faq-a a {
+            color: #1b7b93;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-style: dotted;
+        }
+
+        /* 提示行 与 极简脚注 */
+        .tip-box {
+            background: #cbe3eb;
+            border-radius: 60px;
+            padding: 14px 20px;
+            font-size: 0.9rem;
+            color: #164e5e;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 28px auto;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #4a7a88;
+            border-top: 1px solid #cde1e9;
+            padding-top: 28px;
+            margin-top: 10px;
+        }
+
+        .footer-note a {
+            color: #1f788d;
+            text-decoration: none;
+            border-bottom: 1px dotted #78b7c9;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 680px) {
+            .hero-card {
+                padding: 28px 18px 24px;
+            }
+
+            .hero-card h1 {
+                font-size: 1.7rem;
+            }
+
+            .grid-2col {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .grid-card {
+                padding: 22px 18px;
+            }
+
+            .link-block {
+                padding: 20px 18px;
+            }
+
+            .faq-summary {
+                padding: 18px 18px 22px;
+            }
+
+            .hero-desc {
+                font-size: 1rem;
+                padding-left: 14px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .hero-card h1 small {
+                font-size: 0.8rem;
+                padding: 0 12px;
+            }
+
+            body {
+                padding: 16px 12px 36px;
+            }
+
+            .grid-card ul li {
+                font-size: 0.92rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 主视觉: 像一张索引卡片 -->
+    <div class="hero-card">
+        <h1>
+            ⚡ 直播吧
+            <small>信息参考 · 边栏卡片</small>
+        </h1>
+        <div class="hero-desc">
+            <strong>日常查询与对照</strong> — 比起快速浏览，有时候需要反复检索、对比某场比赛的节点或数据。
+            这里更像一个安静的参考站，适合对照翻阅。
+        </div>
+        <div class="hero-meta">
+            <span>📋 赛程对照</span>
+            <span>🧩 延伸阅读</span>
+            <span>📌 人群档案</span>
+        </div>
+    </div>
+
+    <!-- 用途卡片 + 适合人群 网格 -->
+    <div class="grid-2col">
+        <div class="grid-card">
+            <h3>📇 用途卡片</h3>
+            <p>跟踪赛程、核对比分、梳理联赛走势。不追求即时刷新，而是方便回头查阅关键场次与数据变化。</p>
+            <ul>
+                <li>赛前阵容与历史交锋对照</li>
+                <li>赛季积分与净胜球变化</li>
+                <li>球员数据、伤病信息延伸</li>
+                <li>录像回放与战术复盘</li>
+            </ul>
+        </div>
+        <div class="grid-card">
+            <h3>👥 适合人群</h3>
+            <p>不只是狂热球迷，也适合需要快速查找资料的分析者、体育编辑，或者只想安静核对信息的普通爱好者。</p>
+            <ul>
+                <li>赛后复盘 &amp; 数据爱好者</li>
+                <li>多联赛对照的体育撰稿人</li>
+                <li>习惯用手机查比分的中轻度用户</li>
+                <li>想避开信息轰炸、按自己节奏阅读的人</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 自然链接段落：嵌入句子中 -->
+    <div class="link-block">
+        <p>
+            有时候只想安静地查一下某场比赛的阵容或近五轮走势，不用被弹窗和刷新流干扰。
+            对许多习惯用手机做功课的人来说，<a href="https://main-ssl-zhibo8.com">直播吧</a> 的界面更接近一个信息库，
+            你可以随意对照赛程、点开球员页，甚至只是当成体育维基来使用。没有强推的跳转，节奏由你自己控制。
+        </p>
+        <p>
+            尤其适合在等车、午休或者睡前，翻几场之前没看全的比赛数据，再顺手划一划接下来的对阵。
+            这种用法不像滚动资讯流，更像是打开一本纸质档案，带着一点翻阅感。
+        </p>
+        <div class="footnote">
+            ⚡ 不少用户把它当作“体育参考卡片”，而非单纯的直播工具。
+        </div>
+    </div>
+
+    <!-- FAQ 摘要卡片 — 摘录几个常见观点 -->
+    <div class="faq-summary">
+        <h4>📌 常见场景 · 微问答</h4>
+        <div class="faq-item">
+            <span class="faq-q">怎么快速找到某场已经结束的比赛数据？</span>
+            <span class="faq-a">通常你可以直接使用搜索栏，或按联赛、日期筛选。在 <a href="https://main-ssl-zhibo8.com">直播吧</a> 里，多数比赛页会附带阵容、统计和短评，方便对照。</span>
+        </div>
+        <div class="faq-item">
+            <span class="faq-q">除了比分，还适合查什么？</span>
+            <span class="faq-a">转会传闻、球员履历、历史交锋记录，甚至杯赛的晋级规则。很多人把它当体育版百科来用，尤其是做表格或写稿时需要反复核实细节。</span>
+        </div>
+        <div class="faq-item">
+            <span class="faq-q">移动端操作顺手吗？</span>
+            <span class="faq-a">卡片式布局和清晰的分组在手机上体验不错。翻页比想象中轻快，字体和间距对阅读友好，不需要频繁放大缩小。</span>
+        </div>
+    </div>
+
+    <!-- 提示 / 使用氛围 -->
+    <div class="tip-box">
+        🧷 试着把页面加入主屏幕，下次查比分时就像翻开一张信息卡片。
+    </div>
+
+    <!-- 脚注，包含第二个自然链接（可选，但至少一个，已经满足） -->
+    <div class="footer-note">
+        内容索引基于日常使用习惯整理 · 更多延伸可前往 <a href="https://main-ssl-zhibo8.com">直播吧</a> 自行翻阅
+    </div>
+</div>
+</body>
+</html>
