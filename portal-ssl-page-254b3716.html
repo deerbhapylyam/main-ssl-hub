@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中彩网 · 故事叙述页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #faf7f0;
+            font-family: 'Georgia', 'Times New Roman', '宋体', serif;
+            color: #2b2b2b;
+            line-height: 1.8;
+            padding: 2rem 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* 主线叙事排版 */
+        .story-wrap {
+            background: #fffcf7;
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.02);
+            border: 1px solid #ede6db;
+        }
+
+        /* 开篇短句 —— 像文章中一个克制的题记 */
+        .opening-line {
+            font-size: 1.1rem;
+            letter-spacing: 0.03em;
+            color: #5f5546;
+            border-left: 3px solid #c1b19b;
+            padding-left: 1.2rem;
+            margin-bottom: 1.8rem;
+            font-style: italic;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.25rem;
+            color: #2b241c;
+            line-height: 1.3;
+        }
+
+        .subhead {
+            font-size: 0.95rem;
+            color: #7a6f60;
+            border-bottom: 1px solid #e4dbd0;
+            padding-bottom: 1rem;
+            margin-bottom: 1.8rem;
+        }
+
+        /* 承接段落 */
+        .prose p {
+            margin-bottom: 1.4rem;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .prose p:first-of-type::first-letter {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #7d6b56;
+            float: left;
+            margin-right: 6px;
+            line-height: 1;
+        }
+
+        /* 特点列表 —— 带编号，文章气息 */
+        .feature-list {
+            margin: 2.2rem 0 1.8rem 0;
+            padding: 1.8rem 1.8rem 1.8rem 2.2rem;
+            background: #f4efe7;
+            border-radius: 14px;
+            list-style: none;
+            counter-reset: feature-counter;
+        }
+
+        .feature-list li {
+            counter-increment: feature-counter;
+            margin-bottom: 1.2rem;
+            padding-left: 2rem;
+            position: relative;
+            font-size: 0.98rem;
+            line-height: 1.7;
+        }
+
+        .feature-list li::before {
+            content: counter(feature-counter, decimal) ".";
+            position: absolute;
+            left: 0;
+            font-weight: 600;
+            color: #8a7a65;
+            font-size: 1rem;
+        }
+
+        .feature-list li strong {
+            color: #3f362d;
+            font-weight: 600;
+        }
+
+        .feature-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 引用块 / 提示框 */
+        blockquote {
+            background: #ede6db;
+            padding: 1.2rem 1.8rem;
+            margin: 2rem 0 1.8rem 0;
+            border-radius: 12px;
+            font-style: normal;
+            border-left: 5px solid #b3a18b;
+            color: #3d352b;
+            font-size: 0.96rem;
+        }
+
+        blockquote p {
+            margin-bottom: 0.3rem;
+        }
+
+        .caption {
+            display: block;
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+            color: #6b5f4f;
+            text-align: right;
+        }
+
+        /* 温和结尾 */
+        .closing {
+            margin-top: 2.2rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid #e1d6c9;
+            font-size: 0.95rem;
+            color: #53493d;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.25rem 0.5rem;
+        }
+
+        .closing p {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: #6e5c47;
+            text-decoration: none;
+            border-bottom: 1px dotted #b8a692;
+            transition: border 0.1s ease, color 0.1s;
+        }
+
+        a:hover {
+            color: #3f2e1e;
+            border-bottom: 1px solid #6e5c47;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem 0.8rem;
+            }
+            .story-wrap {
+                padding: 1.6rem 1.2rem;
+            }
+            h1 {
+                font-size: 1.7rem;
+            }
+            .feature-list {
+                padding: 1.4rem 1.2rem 1.4rem 1.6rem;
+            }
+            .feature-list li {
+                padding-left: 1.6rem;
+                font-size: 0.95rem;
+            }
+            blockquote {
+                padding: 1rem 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .opening-line {
+                font-size: 0.95rem;
+                padding-left: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="story-wrap">
+
+    <!-- 开篇短句 -->
+    <div class="opening-line">
+        “一张票，不仅是一组数字；它承载偶然、期待，也映照社会对公益的参与。”
+    </div>
+
+    <!-- 标题区域 -->
+    <h1>中彩网 · 故事叙述</h1>
+    <div class="subhead">从数据查询到彩市观察，一个信息聚合的起点</div>
+
+    <!-- 承接段落 —— 从关键主题展开 -->
+    <div class="prose">
+        <p>
+            在中国彩票行业数字化进程中，信息对称始终是参与者的核心诉求。无论是彩民、店主还是行业研究者，都希望在一个可靠、稳定的平台获取开奖公告、玩法规则、公益金动态以及政策解读。<a href="https://portal-ssl-zhcw.com">中彩网</a>作为长期服务于彩票信息领域的站点，逐渐成为许多人每日浏览的参考之一。它不是一家销售终端，却因数据聚合与官方同步的特性，在碎片化信息时代扮演了安静的枢纽角色。
+        </p>
+        <p>
+            从双色球、大乐透到即开型游戏，不同彩种的开奖节奏、资金分配机制各有差异。对于非专业观察者而言，厘清“奖池”、“返奖率”、“公益金提取比例”等概念并不容易。正因如此，一个结构清晰、更新及时的信息页面，往往能减少不必要的信息摩擦。这也解释了为什么越来越多的人选择通过一个固定入口，去追踪自己关注的结果与公告。
+        </p>
+    </div>
+
+    <!-- 特点列表（五条，信息密度稍高） -->
+    <ul class="feature-list">
+        <li><strong>多彩种同步</strong> — 覆盖福彩、体彩主要游戏的开奖号码与历史趋势，用户可回溯近数十期走势。</li>
+        <li><strong>公告与政策</strong> — 汇集财政部及各地福彩中心发布的调整通知、派奖活动及公益金使用情况摘要。</li>
+        <li><strong>开奖直播/录播</strong> — 部分时段提供官方开奖视频回放或图文直播，提升信息透明度。</li>
+        <li><strong>数据整合逻辑</strong> — 通过结构化页面展示奖级分布、中奖注数，降低用户手动计算的负担。</li>
+        <li><strong>界面克制</strong> — 无冗余弹窗与夸大诱导，以信息陈列为主，适合需要快速查阅的日常场景。</li>
+    </ul>
+
+    <!-- 引用块 / 提示框 —— 带有轻微知识延伸 -->
+    <blockquote>
+        <p>📌 提示：通过固定平台查询开奖信息，有助于减少多渠道交叉验证的成本。建议将常用入口加入浏览器书签，以便每日查看。</p>
+        <span class="caption">—— 信息获取习惯小记</span>
+    </blockquote>
+
+    <!-- 温和结尾 —— 自然收束，并再次嵌入链接（与前面不同句式） -->
+    <div class="closing">
+        <p>无论你是偶尔核对号码，还是持续关注彩市动态，<a href="https://portal-ssl-zhcw.com">中彩网</a>都提供了一个稳定的信息来源。日复一日的数字跳动背后，是规则、概率与公益脉络的安静交织。</p>
+    </div>
+
+    <!-- 极简 FAQ 摘要（融入故事线，不单独成节） -->
+    <div style="margin-top: 1.8rem; font-size: 0.9rem; color: #5f5546; border-top: 1px dashed #ddd6ca; padding-top: 1rem;">
+        <p style="margin-bottom: 0.4rem;"><strong>常见疑问简述</strong> · 页面是否销售彩票？不，仅提供开奖信息与数据整合。数据来源？同步自官方发布渠道，可交叉验证。更新节奏？通常在开奖后数分钟内同步。</p>
+    </div>
+
+</div>
+</body>
+</html>
